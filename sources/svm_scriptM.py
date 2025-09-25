@@ -171,10 +171,7 @@ plt.draw()
 
 # please open a terminal and run python svm_gui.py
 # Then, play with the applet : generate various datasets and observe the
-# different classifiers you can obtain by varying the kernel
-import subprocess
-from svm_gui import *
-subprocess.run(["python3", "svm_gui_script.py"])
+# different classifiers you can obtain by varying the kernel()
 
 
 
