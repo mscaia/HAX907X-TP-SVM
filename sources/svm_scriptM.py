@@ -275,11 +275,12 @@ plt.tight_layout()
 plt.show()
 print("Best score: {}".format(np.max(scores)))
 
+#%%
+# predict labels for the X_test images with the best classifier
+
 print("Predicting the people names on the testing set")
 t0 = time()
 
-#%%
-# predict labels for the X_test images with the best classifier
 clf = SVC(kernel='linear', C=Cs[ind])
 clf.fit(X_train, y_train)
 y_pred =clf.predict(X_test)
@@ -371,7 +372,7 @@ for n in n_components:
  
 plt.figure()
 plt.plot(n_components, scores)
-plt.xlabel("nombre de dimmension")
+plt.xlabel("Nombre de dimension")
 plt.ylabel("Scores d'apprentissage")
 plt.xscale("log")
 plt.tight_layout()
