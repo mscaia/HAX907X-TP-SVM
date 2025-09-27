@@ -359,7 +359,11 @@ def run_svm_cv_modif(_X, _y):
     _clf_linear = GridSearchCV(_svr, _parameters)
     _clf_linear.fit(_X_train, _y_train)
 
-    return(_clf_linear.score(_X_train, _y_train))
+    train_score = _clf_linear.score(_X_train, _y_train)
+    test_score = _clf_linear.score(_X_test, _y_test)
+
+    return [train_score, test_score]
+
     
 
 n_components = list(range(100, 381, 10))
@@ -367,13 +371,19 @@ scores = []
 for n in n_components:
     pca = PCA(n_components=n).fit(X_noisy)
     X_bruit = pca.transform(X_noisy)
-    scores.append(run_svm_cv_modif(X_bruit,y))
+    scores.append(run_svm_cv_modif(X_bruit, y))
+
+train_scores = [s[0] for s in scores]
+test_scores  = [s[1] for s in scores]
+
  
 plt.figure()
-plt.plot(n_components, scores)
-plt.xlabel("nombre de dimmension")
-plt.ylabel("Scores d'apprentissage")
+plt.plot(n_components, train_scores, color="blue", label="Apprentissage")
+plt.plot(n_components, test_scores, color="red", label="Test")
+plt.xlabel("Nombre de dimensions")
+plt.ylabel("Score")
 plt.xscale("log")
+plt.legend()
 plt.tight_layout()
 plt.show()
 
