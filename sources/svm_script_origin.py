@@ -94,14 +94,10 @@ y = iris.target
 X = X[y != 0, :2]
 y = y[y != 0]
 
-# split train test
-X, y = shuffle(X, y)
-X_train = X[::2]
-y_train = y[::2].astype(int)
-X_test = X[1::2]
-y_test = y[1::2].astype(int)
-
-
+# split train test (say 25% for the test)
+# You can shuffle and then separate or you can just use train_test_split 
+#whithout shuffling (in that case fix the random state (say to 42) for reproductibility)
+# ... TODO
 ###############################################################################
 # fit the model with linear vs polynomial kernel
 ###############################################################################
@@ -109,14 +105,13 @@ y_test = y[1::2].astype(int)
 #%%
 # Q1 Linear kernel
 
-# fit the model
+# fit the model and select the best hyperparameter C
 parameters = {'kernel': ['linear'], 'C': list(np.logspace(-3, 3, 200))}
-clf = SVC()
-clf_linear = GridSearchCV(clf, parameters, n_jobs=-1)
-clf_linear.fit(X_train, y_train)
+# ... TODO
+clf_linear = # ... TODO
 
 # compute the score
-print(clf_linear.best_params_)
+
 print('Generalization score for linear kernel: %s, %s' %
       (clf_linear.score(X_train, y_train),
        clf_linear.score(X_test, y_test)))
@@ -127,12 +122,13 @@ Cs = list(np.logspace(-3, 3, 5))
 gammas = 10. ** np.arange(1, 2)
 degrees = np.r_[1, 2, 3]
 
+# fit the model and select the best set of hyperparameters
 parameters = {'kernel': ['poly'], 'C': Cs, 'gamma': gammas, 'degree': degrees}
-clf = SVC()
-clf_poly = GridSearchCV(clf, parameters, n_jobs=-1)
-clf_poly.fit(X_train, y_train)
+# ... TODO
+clf_poly = # ... TODO
+# ... TODO
 
-print(clf_poly.best_params_)
+print(clf_grid.best_params_)
 print('Generalization score for polynomial kernel: %s, %s' %
       (clf_poly.score(X_train, y_train),
        clf_poly.score(X_test, y_test)))
@@ -142,10 +138,10 @@ print('Generalization score for polynomial kernel: %s, %s' %
 # display your results using frontiere (svm_source.py)
 
 def f_linear(xx):
-    return clf_linear.predict(xx.reshape(1, -1))
+    # ... TODO
 
 def f_poly(xx):
-    return clf_poly.predict(xx.reshape(1, -1))
+    # ... TODO
 
 plt.ion()
 plt.figure(figsize=(15, 5))
@@ -171,8 +167,7 @@ plt.draw()
 
 # please open a terminal and run python svm_gui.py
 # Then, play with the applet : generate various datasets and observe the
-# different classifiers you can obtain by varying the kernel()
-
+# different classifiers you can obtain by varying the kernel
 
 
 #%%
@@ -211,7 +206,7 @@ idx0 = (lfw_people.target == target_names.index(names[0]))
 idx1 = (lfw_people.target == target_names.index(names[1]))
 images = np.r_[images[idx0], images[idx1]]
 n_samples = images.shape[0]
-y = np.r_[np.zeros(np.sum(idx0)), np.ones(np.sum(idx1))].astype(int)
+y = np.r_[np.zeros(np.sum(idx0)), np.ones(np.sum(idx1))].astype(np.int)
 
 # plot a sample set of the data
 plot_gallery(images, np.arange(12))
@@ -259,10 +254,8 @@ t0 = time()
 Cs = 10. ** np.arange(-5, 6)
 scores = []
 for C in Cs:
-    clf = SVC(kernel='linear', C=C)
-    clf.fit(X_train, y_train)   
-    scores.append(clf.score(X_train, y_train))
- 
+    # TODO ...
+
 ind = np.argmax(scores)
 print("Best C: {}".format(Cs[ind]))
 
@@ -280,9 +273,7 @@ t0 = time()
 
 #%%
 # predict labels for the X_test images with the best classifier
-clf = SVC(kernel='linear', C=Cs[ind])
-clf.fit(X_train, y_train)
-y_pred =clf.predict(X_test)
+# clf =  ... TODO
 
 print("done in %0.3fs" % (time() - t0))
 # The chance level is the accuracy that will be reached when constantly predicting the majority class.
@@ -324,8 +315,7 @@ def run_svm_cv(_X, _y):
           (_clf_linear.score(_X_train, _y_train), _clf_linear.score(_X_test, _y_test)))
 
 print("Score sans variable de nuisance")
-
-run_svm_cv(X,y)
+# TODO ... use run_svm_cv on original data
 
 print("Score avec variable de nuisance")
 n_features = X.shape[1]
@@ -335,46 +325,12 @@ noise = sigma * np.random.randn(n_samples, 300, )
 #with gaussian coefficients of std sigma
 X_noisy = np.concatenate((X, noise), axis=1)
 X_noisy = X_noisy[np.random.permutation(X.shape[0])]
-
-run_svm_cv(X_noisy,y)
+# TODO ... use run_svm_cv on noisy data
 
 #%%
 # Q6
 print("Score apres reduction de dimension")
 
-X_noisy.shape
-n_components = 120  # jouer avec ce parametre
+n_components = 20  # jouer avec ce parametre
 pca = PCA(n_components=n_components).fit(X_noisy)
-X_bruit = pca.transform(X_noisy)
-run_svm_cv(X_bruit,y)
-
-def run_svm_cv_modif(_X, _y):
-    _indices = np.random.permutation(_X.shape[0])
-    _train_idx, _test_idx = _indices[:_X.shape[0] // 2], _indices[_X.shape[0] // 2:]
-    _X_train, _X_test = _X[_train_idx, :], _X[_test_idx, :]
-    _y_train, _y_test = _y[_train_idx], _y[_test_idx]
-
-    _parameters = {'kernel': ['linear'], 'C': list(np.logspace(-3, 3, 5))}
-    _svr = svm.SVC()
-    _clf_linear = GridSearchCV(_svr, _parameters)
-    _clf_linear.fit(_X_train, _y_train)
-
-    return(_clf_linear.score(_X_train, _y_train))
-    
-
-n_components = list(range(100, 381, 10))
-scores = []
-for n in n_components:
-    pca = PCA(n_components=n).fit(X_noisy)
-    X_bruit = pca.transform(X_noisy)
-    scores.append(run_svm_cv_modif(X_bruit,y))
- 
-plt.figure()
-plt.plot(n_components, scores)
-plt.xlabel("nombre de dimmension")
-plt.ylabel("Scores d'apprentissage")
-plt.xscale("log")
-plt.tight_layout()
-plt.show()
-
-# %%
+# ... TODO Apply PCA and run_svm to the noisy data
