@@ -96,11 +96,12 @@ y = y[y != 0]
 
 # split train test
 X, y = shuffle(X, y)
-X_train = X[::2]
-y_train = y[::2].astype(int)
-X_test = X[1::2]
-y_test = y[1::2].astype(int)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, shuffle=True
+)
 
+y_train = y_train.astype(int)
+y_test = y_test.astype(int)
 
 ###############################################################################
 # fit the model with linear vs polynomial kernel
