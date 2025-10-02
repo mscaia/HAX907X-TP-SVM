@@ -12,7 +12,7 @@ Ce dépôt contient l’ensemble des fichiers nécessaires à la réalisation de
 
 - **Rapport LaTeX** : le fichier principal `main.tex` qui présente notre travail sur les **SVM (Support Vector Machines)**.  
 - **Dossier `images/`** : regroupe toutes les figures et illustrations utilisées pour la compilation du rapport.  
-- **Dossier `sources/`** : contient les différents scripts Python développés et exploités au cours du projet.  
+- **Dossier `sources/`** : contient les différents scripts Python exploités au cours du projet.  
 
 ---
 
