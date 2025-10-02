@@ -1,2 +1,11 @@
 .DS_Store
 .pyc
+.aux
+.fdb_latexmk
+.fls
+.lof
+.log
+.out
+.pyg
+.synctex.gz
+.toc

@@ -1,0 +1,13 @@
+\babel@toc {french}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces Représentation du jeu de données Iris et classification par SVM à noyau linéaire et polynomial}}{3}{figure.caption.2}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Représensation d'un jeu de données très déséquilibré}}{4}{figure.caption.3}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Classification par SVM à noyau linéaire pour C=1}}{4}{figure.caption.4}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Classification par SVM à noyau linéaire pour C=0.1}}{5}{figure.caption.5}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Classification par SVM à noyau linéaire pour C=0.01}}{5}{figure.caption.6}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Score d'apprentissage en fonction du paramètre de régularisation $C$}}{6}{figure.caption.7}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Comparaison des résultats d’un SVM linéaire avec $C$ optimal}}{7}{figure.caption.8}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Visualisation des coefficients}}{8}{figure.caption.9}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Influence de la réduction de dimensions sur les scores}}{9}{figure.caption.10}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Score d'apprentissage en fonction du paramètre de régularisation $C$}}{10}{figure.caption.11}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Comparaison des résultats d’un SVM linéaire avec $C$ optimal}}{11}{figure.caption.12}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Visualisation des coefficients}}{11}{figure.caption.13}%
